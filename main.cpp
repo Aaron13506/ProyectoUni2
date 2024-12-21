@@ -1,93 +1,271 @@
 #include <iostream>
+#include <cmath>
 
+bool isEqual(double a, double b, double epsilon = 1e-6) {
+    return fabs(a - b) < epsilon;
+}
 
 int main() {
-    int life, maxHeightX, maxHeightY, maxElement;
-    int trapX1, trapX2, trapX3, trapX4, trapX5, trapX6, trapX7, trapX8, trapX9, trapX10;
-    int trapY1, trapY2, trapY3, trapY4, trapY5, trapY6, trapY7, trapY8, trapY9, trapY10;
-    int wallX1, wallX2, wallX3, wallX4, wallX5, wallX6, wallX7, wallX8, wallX9, wallX10;
-    int wallY1, wallY2, wallY3, wallY4, wallY5, wallY6, wallY7, wallY8, wallY9, wallY10;
-    int treasureX1, treasureX2, treasureX3, treasureX4, treasureX5, treasureX6, treasureX7, treasureX8, treasureX9,
-            treasureX10;
-    int treasureY1, treasureY2, treasureY3, treasureY4, treasureY5, treasureY6, treasureY7, treasureY8, treasureY9,
-            treasureY10;
-    int portalX1_1, portalX1_2, portalX2_1, portalX2_2, portalX3_1, portalX3_2, portalX4_1, portalX4_2, portalX5_1,
-            portalX5_2, portalX6_1, portalX6_2, portalX7_1, portalX7_2, portalX8_1, portalX8_2, portalX9_1, portalX9_2,
-            portalX10_1, portalX10_2;
-    int portalY1_1, portalY1_2, portalY2_1, portalY2_2, portalY3_1, portalY3_2, portalY4_1, portalY4_2, portalY5_1,
-            portalY5_2, portalY6_1, portalY6_2, portalY7_1, portalY7_2, portalY8_1, portalY8_2, portalY9_1, portalY9_2,
-            portalY10_1, portalY10_2;
-    int entranceX, entranceY;
-    int exitX, exitY;
+    int life, maxElement, maxLife;
+    double trap1, trap2, trap3, trap4, trap5, trap6, trap7, trap8, trap9, trap10;
+    double wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10;
+    double treasure1, treasure2, treasure3, treasure4, treasure5, treasure6, treasure7, treasure8, treasure9,
+            treasure10;
+    double portal1_1, portal1_2, portal2_1, portal2_2, portal3_1, portal3_2, portal4_1, portal4_2, portal5_1,
+            portal5_2, portal6_1, portal6_2, portal7_1, portal7_2, portal8_1, portal8_2, portal9_1, portal9_2,
+            portal10_1, portal10_2;
+    double characterPosition, maxHeightX, maxHeightY;
+    double exit;
     int maxMoves;
     int trapCount = 0, wallCount = 0, treasureCount = 0, portalCount = 0;
-    char elementType;
+    int treasureTaken = 0, trapsTaken = 0;
+    double x, y;
+    char elementType, actualMove;
+    std::string status;
     std::cin >> life >> maxHeightX >> maxHeightY >> maxElement;
+    maxLife = life;
     for (int i = 0; i < maxElement; i++) {
         std::cin >> elementType;
         switch (elementType) {
             case 'T': //treasure
                 treasureCount++;
-                if (treasureCount == 1) std::cin >> treasureX1 >> treasureY1;
-                else if (treasureCount == 2) std::cin >> treasureX2 >> treasureY2;
-                else if (treasureCount == 3) std::cin >> treasureX3 >> treasureY3;
-                else if (treasureCount == 4) std::cin >> treasureX4 >> treasureY4;
-                else if (treasureCount == 5) std::cin >> treasureX5 >> treasureY5;
-                else if (treasureCount == 6) std::cin >> treasureX6 >> treasureY6;
-                else if (treasureCount == 7) std::cin >> treasureX7 >> treasureY7;
-                else if (treasureCount == 8) std::cin >> treasureX8 >> treasureY8;
-                else if (treasureCount == 9) std::cin >> treasureX9 >> treasureY9;
-                else if (treasureCount == 10) std::cin >> treasureX10 >> treasureY10;
+                std::cin >> x >> y;
+                if (treasureCount == 1) treasure1 = (y + x * 10) / 10;
+                else if (treasureCount == 2) treasure2 = (y + x * 10) / 10;
+                else if (treasureCount == 3) treasure3 = (y + x * 10) / 10;
+                else if (treasureCount == 4) treasure4 = (y + x * 10) / 10;
+                else if (treasureCount == 5) treasure5 = (y + x * 10) / 10;
+                else if (treasureCount == 6) treasure6 = (y + x * 10) / 10;
+                else if (treasureCount == 7) treasure7 = (y + x * 10) / 10;
+                else if (treasureCount == 8) treasure8 = (y + x * 10) / 10;
+                else if (treasureCount == 9) treasure9 = (y + x * 10) / 10;
+                else if (treasureCount == 10) treasure10 = (y + x * 10) / 10;
                 break;
             case 'E': //entrance
-                std::cin >> entranceX >> entranceY;
+                std::cin >> x >> y;
+                std::cout << x << "-" << y << std::endl;
+                characterPosition = (y + x * 10) / 10;
                 break;
             case '#': //wall
                 wallCount++;
-                if (wallCount == 1) std::cin >> wallX1 >> wallY1;
-                else if (wallCount == 2) std::cin >> wallX2 >> wallY2;
-                else if (wallCount == 3) std::cin >> wallX3 >> wallY3;
-                else if (wallCount == 4) std::cin >> wallX4 >> wallY4;
-                else if (wallCount == 5) std::cin >> wallX5 >> wallY5;
-                else if (wallCount == 6) std::cin >> wallX6 >> wallY6;
-                else if (wallCount == 7) std::cin >> wallX7 >> wallY7;
-                else if (wallCount == 8) std::cin >> wallX8 >> wallY8;
-                else if (wallCount == 9) std::cin >> wallX9 >> wallY9;
-                else if (wallCount == 10) std::cin >> wallX10 >> wallY10;
+                std::cin >> x >> y;
+                if (wallCount == 1) wall1 = (y + x * 10) / 10;
+                else if (wallCount == 2) wall2 = (y + x * 10) / 10;
+                else if (wallCount == 3) wall3 = (y + x * 10) / 10;
+                else if (wallCount == 4) wall4 = (y + x * 10) / 10;
+                else if (wallCount == 5) wall5 = (y + x * 10) / 10;
+                else if (wallCount == 6) wall6 = (y + x * 10) / 10;
+                else if (wallCount == 7) wall7 = (y + x * 10) / 10;
+                else if (wallCount == 8) wall8 = (y + x * 10) / 10;
+                else if (wallCount == 9) wall9 = (y + x * 10) / 10;
+                else if (wallCount == 10) wall10 = (y + x * 10) / 10;
                 break;
             case 'P': //Portal
                 portalCount++;
-                if (portalCount == 1) std::cin >> portalX1_1 >> portalY1_1 >> portalX1_2 >> portalY1_2;
-                else if (portalCount == 2) std::cin >> portalX2_1 >> portalY2_1 >> portalX2_2 >> portalY2_2;
-                else if (portalCount == 3) std::cin >> portalX3_1 >> portalY3_1 >> portalX3_2 >> portalY3_2;
-                else if (portalCount == 4) std::cin >> portalX4_1 >> portalY4_1 >> portalX4_2 >> portalY4_2;
-                else if (portalCount == 5) std::cin >> portalX5_1 >> portalY5_1 >> portalX5_2 >> portalY5_2;
-                else if (portalCount == 6) std::cin >> portalX6_1 >> portalY6_1 >> portalX6_2 >> portalY6_2;
-                else if (portalCount == 7) std::cin >> portalX7_1 >> portalY7_1 >> portalX7_2 >> portalY7_2;
-                else if (portalCount == 8) std::cin >> portalX8_1 >> portalY8_1 >> portalX8_2 >> portalY8_2;
-                else if (portalCount == 9) std::cin >> portalX9_1 >> portalY9_1 >> portalX9_2 >> portalY9_2;
-                else if (portalCount == 10) std::cin >> portalX10_1 >> portalY10_1 >> portalX10_2 >> portalY10_2;
+                if (portalCount == 1) {
+                    std::cin >> x >> y;
+                    portal1_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal1_2 = (y + x * 10) / 10;
+                } else if (portalCount == 2) {
+                    std::cin >> x >> y;
+                    portal2_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal2_2 = (y + x * 10) / 10;
+                } else if (portalCount == 3) {
+                    std::cin >> x >> y;
+                    portal3_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal3_2 = (y + x * 10) / 10;
+                } else if (portalCount == 4) {
+                    std::cin >> x >> y;
+                    portal4_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal4_2 = (y + x * 10) / 10;
+                } else if (portalCount == 5) {
+                    std::cin >> x >> y;
+                    portal5_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal5_2 = (y + x * 10) / 10;
+                } else if (portalCount == 6) {
+                    std::cin >> x >> y;
+                    portal6_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal6_2 = (y + x * 10) / 10;
+                } else if (portalCount == 7) {
+                    std::cin >> x >> y;
+                    portal7_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal7_2 = (y + x * 10) / 10;
+                } else if (portalCount == 8) {
+                    std::cin >> x >> y;
+                    portal8_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal8_2 = (y + x * 10) / 10;
+                } else if (portalCount == 9) {
+                    std::cin >> x >> y;
+                    portal9_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal9_2 = (y + x * 10) / 10;
+                } else if (portalCount == 10) {
+                    std::cin >> x >> y;
+                    portal10_1 = (y + x * 10) / 10;
+                    std::cin >> x >> y;
+                    portal10_2 = (y + x * 10) / 10;
+                }
                 break;
             case 'S': //exit
-                std::cin >> exitX >> exitY;
+                std::cin >> x >> y;
+                std::cout << x << "/" << y << std::endl;
+                exit = (y + x * 10) / 10;
                 break;
             case 'X': //trap
                 trapCount++;
-                if (trapCount == 1) std::cin >> trapX1 >> trapY1;
-                else if (trapCount == 2) std::cin >> trapX2 >> trapY2;
-                else if (trapCount == 3) std::cin >> trapX3 >> trapY3;
-                else if (trapCount == 4) std::cin >> trapX4 >> trapY4;
-                else if (trapCount == 5) std::cin >> trapX5 >> trapY5;
-                else if (trapCount == 6) std::cin >> trapX6 >> trapY6;
-                else if (trapCount == 7) std::cin >> trapX7 >> trapY7;
-                else if (trapCount == 8) std::cin >> trapX8 >> trapY8;
-                else if (trapCount == 9) std::cin >> trapX9 >> trapY9;
-                else if (trapCount == 10) std::cin >> trapX10 >> trapY10;
+                std::cin >> x >> y;
+                if (trapCount == 1) trap1 = (y + x * 10) / 10;
+                else if (trapCount == 2) trap2 = (y + x * 10) / 10;
+                else if (trapCount == 3) trap3 = (y + x * 10) / 10;
+                else if (trapCount == 4) trap4 = (y + x * 10) / 10;
+                else if (trapCount == 5) trap5 = (y + x * 10) / 10;
+                else if (trapCount == 6) trap6 = (y + x * 10) / 10;
+                else if (trapCount == 7) trap7 = (y + x * 10) / 10;
+                else if (trapCount == 8) trap8 = (y + x * 10) / 10;
+                else if (trapCount == 9) trap9 = (y + x * 10) / 10;
+                else if (trapCount == 10) trap10 = (y + x * 10) / 10;
                 break;
             default: break;
         }
     }
     std::cin >> maxMoves;
+    for (int i = 0; i <= maxMoves; i++) {
+        if (i == maxMoves) {
+            status = "ATRAPADO";
+            break;
+        }
+        double lastPosition = characterPosition;
+        std::cin >> actualMove;
+        switch (actualMove) {
+            case 's':
+                characterPosition -= 1;
+                break;
+            case 'w':
+                characterPosition += 1;
+                break;
+            case 'a':
+                characterPosition -= 0.1;
+                break;
+            case 'd':
+                characterPosition += 0.1;
+            default: break;
+        }
+        if (isEqual(characterPosition, exit)) {
+            if (treasureTaken == treasureCount) {
+                status = "SORPRENDENTE";
+                break;
+            }
+            status = "LOGRADO";
+            break;
+        }
+        if (isEqual(characterPosition, wall1) || isEqual(characterPosition, wall2) || isEqual(characterPosition, wall3)
+            || isEqual(characterPosition, wall4) || isEqual(characterPosition, wall5) ||
+            isEqual(characterPosition, wall6) || isEqual(characterPosition, wall7) || isEqual(characterPosition, wall8)
+            || isEqual(characterPosition, wall9) || isEqual(characterPosition, wall10)) {
+            characterPosition = lastPosition;
+            std::cout << "Moviemiento bloqueado" << std::endl;
+        } else if (static_cast<int>(characterPosition) > maxHeightX || static_cast<int>(
+                       fmod(characterPosition, 1) * 10) > maxHeightY || static_cast<int>(characterPosition) < 0 ||
+                   static_cast<int>(
+                       fmod(characterPosition, 1) * 10) < 0) {
+            characterPosition = lastPosition;
+        } else if (isEqual(characterPosition, trap1) || isEqual(characterPosition, trap2) || isEqual(characterPosition,
+                       trap3) ||
+                   isEqual(characterPosition, trap4) || isEqual(characterPosition, trap5) || isEqual(characterPosition,
+                       trap6) ||
+                   isEqual(characterPosition, trap7) || isEqual(characterPosition, trap8) || isEqual(characterPosition,
+                       trap9) ||
+                   isEqual(characterPosition, trap10)) {
+            life -= 10;
+            trapsTaken++;
+            if (life <= 0) {
+                status = "MUERTO";
+                break;
+            }
+        } else if (isEqual(characterPosition, treasure1)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure1 = -1;
+        } else if (isEqual(characterPosition, treasure2)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure2 = -1;
+        } else if (isEqual(characterPosition, treasure3)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure3 = -1;
+        } else if (isEqual(characterPosition, treasure4)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure4 = -1;
+        } else if (isEqual(characterPosition, treasure5)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure5 = -1;
+        } else if (isEqual(characterPosition, treasure6)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure6 = -1;
+        } else if (isEqual(characterPosition, treasure7)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure7 = -1;
+        } else if (isEqual(characterPosition, treasure8)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure8 = -1;
+        } else if (isEqual(characterPosition, treasure9)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure9 = -1;
+        } else if (isEqual(characterPosition, treasure10)) {
+            life += 20;
+            treasureTaken++;
+            if (life > maxLife) life = maxLife;
+            treasure10 = -1;
+        } else if (isEqual(characterPosition, portal1_1)) {
+            characterPosition = portal1_2;
+        } else if (isEqual(characterPosition, portal2_1)) {
+            characterPosition = portal2_2;
+        } else if (isEqual(characterPosition, portal3_1)) {
+            characterPosition = portal3_2;
+        } else if (isEqual(characterPosition, portal4_1)) {
+            characterPosition = portal4_2;
+        } else if (isEqual(characterPosition, portal5_1)) {
+            characterPosition = portal5_2;
+        } else if (isEqual(characterPosition, portal6_1)) {
+            characterPosition = portal6_2;
+        } else if (isEqual(characterPosition, portal7_1)) {
+            characterPosition = portal7_2;
+        } else if (isEqual(characterPosition, portal8_1)) {
+            characterPosition = portal8_2;
+        } else if (isEqual(characterPosition, portal9_1)) {
+            characterPosition = portal9_2;
+        } else if (isEqual(characterPosition, portal10_1)) {
+            characterPosition = portal10_2;
+        }
+    }
+
+    std::cout << "TESOROS:" << treasureTaken << "\nTRAMPAS:" << trapsTaken << "\nVIDA:" << life << "\n" <<
+            status <<
+            "\n";
 
     return 0;
 }
