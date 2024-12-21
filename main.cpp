@@ -164,24 +164,23 @@ int main() {
             status = "LOGRADO";
             break;
         }
-        if (isEqual(characterPosition, wall1) || isEqual(characterPosition, wall2) || isEqual(characterPosition, wall3)
-            || isEqual(characterPosition, wall4) || isEqual(characterPosition, wall5) ||
-            isEqual(characterPosition, wall6) || isEqual(characterPosition, wall7) || isEqual(characterPosition, wall8)
-            || isEqual(characterPosition, wall9) || isEqual(characterPosition, wall10)) {
+        if (isEqual(characterPosition, wall1) || isEqual(characterPosition, wall2) ||
+            isEqual(characterPosition, wall3) || isEqual(characterPosition, wall4) ||
+            isEqual(characterPosition, wall5) || isEqual(characterPosition, wall6) ||
+            isEqual(characterPosition, wall7) || isEqual(characterPosition, wall8) ||
+            isEqual(characterPosition, wall9) || isEqual(characterPosition, wall10)) {
             characterPosition = lastPosition;
-            std::cout << "Moviemiento bloqueado" << std::endl;
-        } else if (static_cast<int>(characterPosition) > maxHeightX || static_cast<int>(
-                       fmod(characterPosition, 1) * 10) > maxHeightY || static_cast<int>(characterPosition) < 0 ||
-                   static_cast<int>(
-                       fmod(characterPosition, 1) * 10) < 0) {
+            std::cout << "Moviemiento bloqueado\n";
+        } else if (static_cast<int>(characterPosition) > maxHeightX ||
+                   static_cast<int>(fmod(characterPosition, 1) * 10) > maxHeightY ||
+                   static_cast<int>(characterPosition) < 0 ||
+                   static_cast<int>(fmod(characterPosition, 1) * 10) < 0) {
             characterPosition = lastPosition;
-        } else if (isEqual(characterPosition, trap1) || isEqual(characterPosition, trap2) || isEqual(characterPosition,
-                       trap3) ||
-                   isEqual(characterPosition, trap4) || isEqual(characterPosition, trap5) || isEqual(characterPosition,
-                       trap6) ||
-                   isEqual(characterPosition, trap7) || isEqual(characterPosition, trap8) || isEqual(characterPosition,
-                       trap9) ||
-                   isEqual(characterPosition, trap10)) {
+        } else if (isEqual(characterPosition, trap1) || isEqual(characterPosition, trap2) ||
+                   isEqual(characterPosition, trap3) || isEqual(characterPosition, trap4) ||
+                   isEqual(characterPosition, trap5) || isEqual(characterPosition, trap6) ||
+                   isEqual(characterPosition, trap7) || isEqual(characterPosition, trap8) ||
+                   isEqual(characterPosition, trap9) || isEqual(characterPosition, trap10)) {
             life -= 10;
             trapsTaken++;
             if (life <= 0) {
