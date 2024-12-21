@@ -43,7 +43,6 @@ int main() {
                 break;
             case 'E': //entrance
                 std::cin >> x >> y;
-                std::cout << x << "-" << y << std::endl;
                 characterPosition = (y + x * 10) / 10;
                 break;
             case '#': //wall
@@ -116,7 +115,6 @@ int main() {
                 break;
             case 'S': //exit
                 std::cin >> x >> y;
-                std::cout << x << "/" << y << std::endl;
                 exit = (y + x * 10) / 10;
                 break;
             case 'X': //trap
