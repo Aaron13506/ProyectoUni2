@@ -27,7 +27,7 @@ int main() {
     for (int i = 0; i < maxElement; i++) {
         std::cin >> elementType;
         switch (elementType) {
-            case 'T': //treasure
+            case 'T':
                 treasureCount++;
                 std::cin >> x >> y;
                 if (treasureCount == 1) treasure1 = (y + x * 10) / 10;
@@ -41,11 +41,11 @@ int main() {
                 else if (treasureCount == 9) treasure9 = (y + x * 10) / 10;
                 else if (treasureCount == 10) treasure10 = (y + x * 10) / 10;
                 break;
-            case 'E': //entrance
+            case 'E':
                 std::cin >> x >> y;
                 characterPosition = (y + x * 10) / 10;
                 break;
-            case '#': //wall
+            case '#':
                 wallCount++;
                 std::cin >> x >> y;
                 if (wallCount == 1) wall1 = (y + x * 10) / 10;
@@ -59,7 +59,7 @@ int main() {
                 else if (wallCount == 9) wall9 = (y + x * 10) / 10;
                 else if (wallCount == 10) wall10 = (y + x * 10) / 10;
                 break;
-            case 'P': //Portal
+            case 'P':
                 portalCount++;
                 if (portalCount == 1) {
                     std::cin >> x >> y;
@@ -113,11 +113,11 @@ int main() {
                     portal10_2 = (y + x * 10) / 10;
                 }
                 break;
-            case 'S': //exit
+            case 'S':
                 std::cin >> x >> y;
                 exit = (y + x * 10) / 10;
                 break;
-            case 'X': //trap
+            case 'X':
                 trapCount++;
                 std::cin >> x >> y;
                 if (trapCount == 1) trap1 = (y + x * 10) / 10;
