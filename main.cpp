@@ -260,6 +260,26 @@ int main() {
             characterPosition = portal9_2;
         } else if (isEqual(characterPosition, portal10_1)) {
             characterPosition = portal10_2;
+        } else if (isEqual(characterPosition, portal1_2)) {
+            characterPosition = portal1_1;
+        } else if (isEqual(characterPosition, portal2_2)) {
+            characterPosition = portal2_1;
+        } else if (isEqual(characterPosition, portal3_2)) {
+            characterPosition = portal3_1;
+        } else if (isEqual(characterPosition, portal4_2)) {
+            characterPosition = portal4_1;
+        } else if (isEqual(characterPosition, portal5_2)) {
+            characterPosition = portal5_1;
+        } else if (isEqual(characterPosition, portal6_2)) {
+            characterPosition = portal6_1;
+        } else if (isEqual(characterPosition, portal7_2)) {
+            characterPosition = portal7_1;
+        } else if (isEqual(characterPosition, portal8_2)) {
+            characterPosition = portal8_1;
+        } else if (isEqual(characterPosition, portal9_2)) {
+            characterPosition = portal9_1;
+        } else if (isEqual(characterPosition, portal10_2)) {
+            characterPosition = portal10_1;
         }
     }
 
